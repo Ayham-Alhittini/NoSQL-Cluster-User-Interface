@@ -1,0 +1,19 @@
+<div class="container vh-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm" style="border: 1px solid #ddd;">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4" style="color: #333;">Login</h2>
+                    <form class="d-flex flex-column" (ngSubmit)="login(authForm)" #authForm="ngForm" autocomplete="off">
+                        <input class="form-control mb-3" type="text" placeholder="Email..." aria-label="email" required ngModel name="email" style="border-color: #ccc;">
+                        <input class="form-control mb-3" type="password" placeholder="Password..." aria-label="password" required ngModel name="password" style="border-color: #ccc;">
+                        <button class="btn btn-primary mt-2" type="submit" style="background-color: #5bc0de; border: none;">Login</button>
+                        <div class="mt-4 text-center">
+                            Not registered yet? <a href="/auth/register" style="color: #5bc0de;">Create an account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

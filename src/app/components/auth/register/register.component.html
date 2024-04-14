@@ -1,0 +1,26 @@
+<div class="container vh-100">
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm" style="border: 1px solid #ddd;">
+          <div class="card-body">
+            <form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+              <h2 class="card-title text-center mb-4" style="color: #333;">Sign Up</h2>
+  
+              <app-text-input [formControl]="registerForm.controls['email']" [label]="'Email'" [type]="'email'" class="mb-3"></app-text-input>
+  
+              <app-text-input [formControl]="registerForm.controls['userName']" [label]="'Username'" [type]="'text'" class="mb-3"></app-text-input>
+  
+              <app-text-input [formControl]="registerForm.controls['password']" [label]="'Password'" [type]="'password'" class="mb-3"></app-text-input>
+              <app-text-input [formControl]="registerForm.controls['confirmPassword']" [label]="'Confirm Password'" [type]="'password'" class="mb-3"></app-text-input>
+  
+              <div class="text-center mt-4">
+                <button class="btn btn-primary" type="submit" [disabled]="registerForm.invalid" style="background-color: #5bc0de; border: none;">Register</button>
+                <p class="mt-4">Already have an account? <a routerLink="/auth/login" style="color: #5bc0de;">Log in</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

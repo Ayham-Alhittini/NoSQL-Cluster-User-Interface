@@ -1,0 +1,20 @@
+<app-nav></app-nav>
+<div class="container py-5 my-5">
+    <div class="cluster-management-card p-4 border rounded">
+      <h1 class="mb-4 text-center">Cluster Management Console</h1>
+      <div class="d-flex flex-column align-items-center">
+        <div class="cluster-status mb-3">
+          <h2 class="text-info">Cluster Status: <span class="fw-bold" [class.text-success]="isClusterRunning" [class.text-danger]="!isClusterRunning">{{ isClusterRunning ? 'Running' : 'Stopped' }}</span></h2>
+        </div>
+        <div class="btn-group" role="group" aria-label="Cluster management actions">
+          <button (click)="startCluster()" class="btn btn-lg btn-success me-2" [disabled]="isClusterRunning">
+            <i class="bi bi-play-fill"></i> Start Cluster
+          </button>
+          <button (click)="shutdownCluster()" class="btn btn-lg btn-danger" [disabled]="!isClusterRunning">
+            <i class="bi bi-stop-fill"></i> Shutdown Cluster
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

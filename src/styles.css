@@ -1,0 +1,16 @@
+@keyframes blink {
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+
+/* Apply the animation to the element */
+.blink {
+  animation: blink 2s ease-in-out infinite; /* Customize the duration (2s in this example) */
+}

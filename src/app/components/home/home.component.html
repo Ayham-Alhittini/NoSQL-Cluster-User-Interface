@@ -1,0 +1,68 @@
+<div class="sidebar bg-dark text-white">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-4">Database Manager</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+          <button type="button" class="ms-2 mb-2 btn btn-success" (click)="toggleModal()">
+              + Create New Database
+          </button>
+      </li>
+      <li *ngFor="let db of databases" class="nav-item">
+          <a [class.active]="selectedDatabase?.dbName === db.dbName"
+              style="cursor: pointer;" class="nav-link text-white" aria-current="page" (click)="selectDatabase(db)">
+              {{ db.dbName }}
+          </a>
+      </li>
+  </ul>
+  <hr>
+  <button class="btn btn-warning mt-auto" (click)="logout()">Logout</button>
+</div>
+
+
+<div class="content" *ngIf="selectedDatabase">
+  <div class="mb-4">
+    <h2>{{ selectedDatabase.name }}</h2>
+    <label class="form-label">API KEY:</label>
+    <div class="d-flex align-items-center gap-2">
+      <input type="text" class="form-control" [value]="selectedDatabase.apiKey" disabled>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(selectedDatabase.apiKey)">
+        Copy
+      </button>
+    </div>
+  </div>
+  
+  <div *ngIf="(authService.loadedUser | async) as user" class="mb-4">
+    <label class="form-label">Your Token:</label>
+    <div class="d-flex align-items-center gap-2">
+      <input id="userToken" type="text" class="form-control" [value]="user.token" disabled>
+      <button class="btn btn-outline-secondary" (click)="copyToClipboard(user.token)">
+        Copy
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Component -->
+<div class="modal fade" [class.show]="showModal" aria-labelledby="createDatabaseModalLabel" [attr.aria-hidden]="!showModal ? 'true' : null" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="createDatabaseModalLabel">Create New Database</h5>
+              <button type="button" class="btn-close" (click)="toggleModal()" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="databaseName" class="form-label">Database Name</label>
+                  <input type="text" class="form-control" id="databaseName" [(ngModel)]="newDatabaseName" placeholder="Enter database name">
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="toggleModal()">Close</button>
+              <button type="button" class="btn btn-primary" (click)="createDatabase()">Create Database</button>
+          </div>
+      </div>
+  </div>
+</div>

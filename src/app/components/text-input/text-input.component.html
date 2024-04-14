@@ -1,0 +1,26 @@
+<div class="mb-3">
+    <input 
+        type="{{type}}"
+        [class.is-invalid]="ngControl.invalid && ngControl?.touched"
+        [formControl]="ngControl.control"
+        placeholder="{{label}}"
+        class="form-control"
+    >
+
+    <div class="invalid-feedback" *ngIf="ngControl.hasError('required')">
+        Please enter a {{label}}
+    </div>
+
+
+    <div class="invalid-feedback" *ngIf="ngControl.hasError('notMatching')">
+        Passwords are not matching.
+    </div>
+
+    <div class="invalid-feedback" *ngIf="ngControl.hasError('invalidUsername')">
+        You allowed to use alphanumeric character  numbers and hyphens.
+    </div>
+
+    <div class="invalid-feedback" *ngIf="ngControl.hasError('weakPassword')">
+        Include at least one lowercase letter, one uppercase letter, one digit, and one special character, and at least 8 characters longs.
+    </div>
+</div>

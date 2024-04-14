@@ -1,0 +1,35 @@
+/* Optional: Add this to your component's CSS if you want to customize further than Bootstrap's defaults */
+.cluster-status {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .btn-group > .btn {
+    transition: transform 0.1s ease-in-out;
+  }
+  
+  .btn-group > .btn:active {
+    transform: translateY(2px);
+  }
+  
+  /* If your project has SCSS support */
+  .btn-success {
+    @include button-variant($white, $success, $darken-10);
+  }
+  
+  .btn-danger {
+    @include button-variant($white, $danger, $darken-10);
+  }
+  
+  .cluster-management-card {
+    border: 1px solid #dee2e6; /* Bootstrap's border-color */
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Other styles from the previous response remain the same */
+  
