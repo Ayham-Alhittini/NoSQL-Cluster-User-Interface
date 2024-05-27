@@ -24,23 +24,21 @@
   color: #f1f1f1;
 }
 
-/* Additional flex styles for pushing the logout button to the bottom */
 .nav-pills {
   flex: 1;
 }
 
 .btn-warning {
-  margin-top: auto; /* Pushes the logout button to the bottom */
+  margin-top: auto; 
   margin-left: auto;
   margin-right: auto;
-  width: 90%; /* Ensures the button stretches to full width */
+  width: 90%; 
   margin-bottom: 10px;
 }
 
 .content {
-  margin-left: 280px; /* Adjusted to match the width of the sidebar */
+  margin-left: 280px; 
   padding: 1px 16px;
-  height: 1000px; /* Adjust as needed */
 }
 
 @media screen and (max-width: 700px) {
@@ -65,5 +63,174 @@
 }
 
 .modal.show {
-  display: block; /* Ensure the modal is displayed when showModal is true */
+  display: block; 
+}
+
+
+
+.database-heading {
+  font-size: 24px; 
+  font-weight: bold;
+  margin-bottom: 20px; 
+  color: #333; 
+  text-align: center; 
+}
+
+
+.collection-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left; 
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex; 
+  align-items: center; 
+}
+
+.collection-name {
+  font-size: 20px; 
+  font-weight: bold;
+  margin-left: 15px; 
+  flex-grow: 1; 
+}
+
+
+.collection-icon {
+  font-size: 16px; 
+  color: #373A3C; 
+  margin-right: 8px; 
+}
+
+
+.btn-toggle-nav li {
+  padding: 4px 0; 
+}
+
+
+.btn-toggle {
+  width: 100%; 
+  text-align: left; 
+  padding: 8px 16px; 
+}
+
+
+.bg-secondary {
+  border-radius: 8px; 
+  padding: 8px; 
+  margin-top: 4px; 
+}
+
+.collection-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.active-db {
+  background-color: #4CAF50; 
+  color: white; 
+  font-weight: bold; 
+}
+
+/* src/app/documents/documents.component.css */
+.tabset-fullwidth li {
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  list-style-type: none; /* Optional: removes the bullet points from list items */
+}
+.tabset-fullwidth li:hover {
+  background-color: #f0f0f0;
+}
+
+
+
+
+.tabset-fullwidth ul.document-list {
+  padding: 0;
+  list-style-type: none; /* Removes default bullet points */
+}
+
+.tabset-fullwidth li {
+  display: flex;
+  align-items: center; /* Aligns the icon and text vertically */
+  cursor: pointer;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Gives a slight rounded corner to each item */
+  margin-bottom: 5px; /* Adds space between items */
+  transition: background-color 0.2s; /* Smooth transition for hover effect */
+}
+
+.tabset-fullwidth li:hover {
+  background-color: #f8f8f8; /* Light grey background on hover */
+}
+
+.tabset-fullwidth i {
+  margin-right: 10px; /* Adds some space between the icon and the text */
+  font-size: 1.2em; /* Optionally adjusts the size of the icon */
+}
+
+.tabset-fullwidth .filename {
+  flex-grow: 1; /* Ensures the filename takes up the remaining space */
+}
+
+/* src/app/documents/documents.component.css */
+.card {
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  word-wrap: break-word; /* Ensures that long strings can wrap */
+}
+
+.filename {
+  margin-right: auto; /* Pushes the overflow menu to the right */
+  overflow-wrap: break-word; /* Allows long words to be broken and wrap onto the next line */
+}
+
+.custom-document-card {
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  border: none;
+  background-color: transparent; /* Remove the card background */
+}
+
+.custom-document-card:hover {
+  box-shadow: none; /* Optional: if you want no change on hover */
+}
+
+.custom-card-body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 0; /* Adjust padding as needed */
+}
+
+.custom-file-icon {
+  background-image: url('~src/assets/document.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 80px; /* Adjust the size as needed */
+  width: 80px;
+}
+
+.custom-filename {
+  color: black; /* Or any other color */
+  font-size: 16px; /* Adjust the font size as needed */
+  font-weight: bold; /* Optional: if you want the filename to be bold */
+  margin-top: 10px; /* Adjust spacing between icon and text */
+  overflow-wrap: break-word; /* Ensures long words are broken and wrap onto the next line */
 }

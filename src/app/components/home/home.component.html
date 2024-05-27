@@ -9,12 +9,24 @@
               + Create New Database
           </button>
       </li>
-      <li *ngFor="let db of databases" class="nav-item">
-          <a [class.active]="selectedDatabase?.dbName === db.dbName"
-              style="cursor: pointer;" class="nav-link text-white" aria-current="page" (click)="selectDatabase(db)">
-              {{ db.dbName }}
-          </a>
-      </li>
+      <ul class="list-unstyled ps-0">
+
+        <li class="mb-1" *ngFor="let db of databases; let i = index">
+          <button class="btn btn-toggle align-items-center rounded border-0 collapsed"
+            (click)="toggleCollapse(i)" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + i" aria-expanded="false">
+            <i class="fa-solid fa-database pe-2"></i>
+            {{ db.dbName }}
+          </button>
+          <div *ngIf="db?.collections?.length > 0" class="collapse bg-secondary ms-2 me-2" [id]="'collapse' + i">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li *ngFor="let collection of db.collections" class="d-flex align-items-center">
+                <i class="fa-solid fa-table-list collection-icon"></i><span style="cursor: pointer;" (click)="showCollection(collection)" class="link-dark rounded">{{ collection }}</span>
+              </li>
+            </ul>
+          </div>
+        </li>
+         
+      </ul>
   </ul>
   <hr>
   <button class="btn btn-warning mt-auto" (click)="logout()">Logout</button>
@@ -22,28 +34,83 @@
 
 
 <div class="content" *ngIf="selectedDatabase">
-  <div class="mb-4">
-    <h2>{{ selectedDatabase.name }}</h2>
-    <label class="form-label">API KEY:</label>
-    <div class="d-flex align-items-center gap-2">
-      <input type="text" class="form-control" [value]="selectedDatabase.apiKey" disabled>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(selectedDatabase.apiKey)">
-        Copy
-      </button>
-    </div>
+<div *ngIf="selectedCollection === null" class="mb-4">
+  <h2>{{ selectedDatabase.name }}</h2>
+  <label class="form-label">API KEY:</label>
+  <div class="d-flex align-items-center gap-2">
+    <input type="text" class="form-control" [value]="selectedDatabase.apiKey" disabled>
+    <button class="btn btn-outline-secondary" (click)="copyToClipboard(selectedDatabase.apiKey)">
+      Copy
+    </button>
   </div>
+</div>
+
+<div *ngIf=" selectedCollection === null && (authService.loadedUser | async) as user" class="mb-4">
+  <label class="form-label">Your Token:</label>
+  <div class="d-flex align-items-center gap-2">
+    <input id="userToken" type="text" class="form-control" [value]="user.token" disabled>
+    <button class="btn btn-outline-secondary" (click)="copyToClipboard(user.token)">
+      Copy
+    </button>
+  </div>
+</div>
+
+<div *ngIf="selectedCollection != null">
   
-  <div *ngIf="(authService.loadedUser | async) as user" class="mb-4">
-    <label class="form-label">Your Token:</label>
-    <div class="d-flex align-items-center gap-2">
-      <input id="userToken" type="text" class="form-control" [value]="user.token" disabled>
-      <button class="btn btn-outline-secondary" (click)="copyToClipboard(user.token)">
-        Copy
-      </button>
+  <h2 class="text-center mt-3 mb-2" >
+    <i  class="fa-solid fa-table-list me-2"></i>{{selectedDatabase.dbName + '.' + selectedCollection}}
+  </h2>
+
+  <tabset class="tabset-fullwidth">
+    <tab heading="Documents">
+      <div class="p-5">
+<!-- src/app/documents/documents.component.html -->
+<div class="container mt-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-4">
+    <div class="col" *ngFor="let document of documents">
+      <!-- Custom Document Card -->
+      <div class="custom-document-card h-100 text-center" (click)="selectedDocument=document">
+        <div class="custom-card-body d-flex flex-column justify-content-center align-items-center p-3">
+          <!-- Custom File Icon -->
+          <div class="custom-file-icon">
+          </div>
+          <span class="custom-filename mt-2" title="{{ document.object_id }}">
+            {{ truncate(document.object_id, 7) }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+
+
+      </div>
+    </tab>
+    <tab heading="Schema">
+      <div class="p-5">
+        <ng-container *ngIf="schema === null">
+            <strong class="text-center">This collectoin is schema less</strong>
+        </ng-container>
+        <ng-container *ngIf="schema !== null">
+          <pre>{{ schema | json }}</pre>
+        </ng-container>
+      </div>
+    </tab>
+    <tab heading="Indexes">
+      <div class="p-5">
+        <ul>
+          <li *ngFor="let index of indexes">
+            <i class="fa-solid fa-bolt"></i>{{removeFormat(index)}}
+          </li>
+        </ul>
+      </div>
+    </tab>
+  </tabset>
+
+</div>
+
+</div>
 
 <!-- Modal Component -->
 <div class="modal fade" [class.show]="showModal" aria-labelledby="createDatabaseModalLabel" [attr.aria-hidden]="!showModal ? 'true' : null" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
@@ -65,4 +132,24 @@
           </div>
       </div>
   </div>
+  </div>
+
+<div *ngIf="selectedDocument != null" class="container position-absolute top-30 start-50 translate-middle">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header d-flex">
+          <h2>Document content</h2>
+          <button class="btn ms-auto" (click)="selectedDocument=null">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          
+        </div>
+        <div class="card-body">
+          <pre>{{ selectedDocument | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+

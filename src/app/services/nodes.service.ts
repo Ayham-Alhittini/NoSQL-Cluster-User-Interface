@@ -8,8 +8,8 @@ export class NodesService {
 
   constructor(private http: HttpClient) { }
 
-  startClusterNodes() {
-    return this.http.post('http://localhost:8080/api/cluster/start', null);
+  startClusterNodes(numberOfNodes: number) {
+    return this.http.post('http://localhost:8080/api/cluster/start', {numberOfNodes: numberOfNodes});
   }
 
   shutDownClusterNodes() {

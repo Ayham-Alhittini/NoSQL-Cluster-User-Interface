@@ -10,11 +10,13 @@ export class DatabaseService {
   constructor(private http : HttpClient) { }
 
   createDB(dbName: string) {
+    //Bootstrap node
     return this.http.post<Database>('http://localhost:8080/api/access/createDB/' + dbName, null);
   }
 
   showDbs() {
-    return this.http.get<Database[]>('http://localhost:8080/api/access/showDbs');
+    //Worker node
+    return this.http.get<Database[]>('http://localhost:8081/api/database/showDbs');
   }
 
 }

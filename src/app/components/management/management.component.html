@@ -1,20 +1,38 @@
 <app-nav></app-nav>
 <div class="container py-5 my-5">
-    <div class="cluster-management-card p-4 border rounded">
-      <h1 class="mb-4 text-center">Cluster Management Console</h1>
-      <div class="d-flex flex-column align-items-center">
-        <div class="cluster-status mb-3">
-          <h2 class="text-info">Cluster Status: <span class="fw-bold" [class.text-success]="isClusterRunning" [class.text-danger]="!isClusterRunning">{{ isClusterRunning ? 'Running' : 'Stopped' }}</span></h2>
+  <div class="cluster-management-card p-4 border rounded">
+    <h1 class="mb-4 text-center">Cluster Management Console</h1>
+    <div class="d-flex flex-column align-items-center">
+      <div class="cluster-status mb-4">
+        <h2 class="text-info">Cluster Status: 
+          <span class="fw-bold" [class.text-success]="isClusterRunning" [class.text-danger]="!isClusterRunning">
+            {{ isClusterRunning ? 'Running' : 'Stopped' }}
+          </span>
+        </h2>
+      </div>
+
+      <div *ngIf="!isClusterRunning" class="d-flex justify-content-center align-items-center mb-3" style="min-height: 100px;">
+        <input type="number" min="1" [(ngModel)]="numberOfNodes" placeholder="Enter number of nodes" class="form-control text-center">
+      </div>
+
+      <!-- Button Group for Cluster Actions -->
+      <div class="btn-group mb-3" role="group" aria-label="Cluster management actions">
+        <button (click)="startCluster()" class="btn btn-lg btn-success me-2" [disabled]="isClusterRunning">Start Cluster</button>
+        <button (click)="shutdownCluster()" class="btn btn-lg btn-danger me-2" [disabled]="!isClusterRunning">Shutdown Cluster</button>
+      </div>
+      <!-- Upload Section -->
+      <div *ngIf="isClusterRunning" class="upload-section">
+        <input type="file" name="upload-input" [(ngModel)]="INPUT_RESET" #fileInput style="display: none" (change)="onFileSelected($event)" />
+        <button *ngIf="!selectedFile" (click)="fileInput.click()" class="btn btn-lg btn-primary">Upload Backup</button>
+        <div *ngIf="selectedFile" class="upload-actions mt-2">
+          <button (click)="uploadFile()" class="btn btn-lg btn-primary me-2">Submit Backup</button>
+          <button (click)="resetUpload()" class="btn btn-lg btn-secondary">Cancel</button>
         </div>
-        <div class="btn-group" role="group" aria-label="Cluster management actions">
-          <button (click)="startCluster()" class="btn btn-lg btn-success me-2" [disabled]="isClusterRunning">
-            <i class="bi bi-play-fill"></i> Start Cluster
-          </button>
-          <button (click)="shutdownCluster()" class="btn btn-lg btn-danger" [disabled]="!isClusterRunning">
-            <i class="bi bi-stop-fill"></i> Shutdown Cluster
-          </button>
-        </div>
+      </div>
+      <!-- Download Backup Button -->
+      <div *ngIf="isClusterRunning" class="btn-group mb-3" role="group" aria-label="Download backup action">
+        <button (click)="downloadBackup()" class="btn btn-lg btn-warning mt-2">Download Backup</button>
       </div>
     </div>
   </div>
-  
+</div>

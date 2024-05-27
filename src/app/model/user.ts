@@ -3,7 +3,6 @@ export interface User {
   email: string;
   userName: string;
   userRole: string;
-  accountState: string;
   token: string;
 }
 
